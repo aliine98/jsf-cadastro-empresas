@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="UTF-8" />
+	<title>Gestão de Empresas</title>
+	<h:outputStylesheet library="jsf1" name="style.css" />
+</h:head>
+<h:body>
+	<header>
+		<h1>GE</h1>
+	</header>
+	<div id="conteudo">
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Razão social: " for="razaoSocial" />
+				<h:panelGroup>
+					<p:inputText id="razaoSocial"
+						value="#{gestaoEmpresasBean.empresa.razaoSocial}" required="true" />
+					<!-- valor que for digitado no input será salvo como o atributo da entidade -->
+					<p:message for="razaoSocial" />
+				</h:panelGroup>
+				<p:outputLabel value="Nome Fantasia: " for="nomeFantasia" />
+				<p:inputText id="nomeFantasia"
+					value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
+				<p:outputLabel value="Tipo de empresa" for="tipo" />
+				<h:panelGroup>
+					<p:selectOneMenu id="tipo"
+						value="#{gestaoEmpresasBean.empresa.tipo}" required="true">
+						<!-- valor selecionado será salvo -->
+						<f:selectItem itemLabel="Selecione..." />
+						<f:selectItems value="#{gestaoEmpresasBean.tiposEmpresa}"
+							var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}"
+							itemValue="#{tipoEmpresa}" />
+						<!-- value=lista e o selectItems criará um selectItem para cada item da lista 
+				var=pega cada item da lista e disponibiliza como variavel assim podemos usar o getDescricao do enum pois teremos cada item do enum-->
+					</p:selectOneMenu>
+					<p:message for="tipo" />
+				</h:panelGroup>
+				<p:outputLabel value="Data fundação: " for="dataFundacao" />
+				<h:panelGroup>
+					<p:inputText id="dataFundacao"
+						value="#{gestaoEmpresasBean.empresa.dataFundacao}"
+						label="Data fundação">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</p:inputText>
+					<p:message for="dataFundacao" />
+				</h:panelGroup>
+				<h:outputText />
+				<p:commandButton value="Salvar"
+					actionListener="#{gestaoEmpresasBean.salvar}" update="@form" />
+				<h:outputText />
+				<p:commandLink value="Ajuda?"
+					action="AjudaGestaoEmpresas?faces-redirect=true" />
+			</h:panelGrid>
+		</h:form>
+
+		<p:dataTable value="#{[0]}">
+			<p:column headerText="Razão social">
+				<!-- Se estivesse usando dataTable do jsf sem primefaces, seria necessário usar facet name=header para configurar o nome da coluna
+					<f:facet name="header">
+						<h:outputText value="Razão Social" />
+					</f:facet> -->
+				<h:outputText value="Empresa 1 MEI" />
+			</p:column>
+			<p:column headerText="Nome fantasia">
+				<h:outputText value="Empresa 1" />
+			</p:column>
+			<p:column headerText="Tipo empresa">
+				<h:outputText value="MEI" />
+			</p:column>
+		</p:dataTable>
+	</div>
+	<footer> 2024 &#169; Aline Bevilacqua </footer>
+</h:body>
+</html>

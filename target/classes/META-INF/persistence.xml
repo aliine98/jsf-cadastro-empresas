@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+	
+	<persistence-unit name="jsf1PU">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>br.com.aline.erp.model.Empresa</class>
+		<class>br.com.aline.erp.model.RamoAtividade</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jsf1?autoReconnect=true&amp;useSSL=false" />
+            <property name="javax.persistence.jdbc.user" value="desenvolvimento" />
+            <property name="javax.persistence.jdbc.password" value="rcom2013rcom" />
+
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+			
+			<property name="hiberate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+		</properties>
+	</persistence-unit>
+	
+</persistence>
