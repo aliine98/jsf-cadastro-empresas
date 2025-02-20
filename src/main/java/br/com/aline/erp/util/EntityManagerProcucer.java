@@ -11,9 +11,22 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProcucer {
 	private EntityManagerFactory factory;
+	private	Map<String, String> env = System.getenv();
+	private	Map<String, Object> configOverrides = new HashMap<String, Object>();
 
 	public EntityManagerProcucer() {
-		this.factory = Persistence.createEntityManagerFactory("jsf1PU");
+		for (String envName : env.keySet()) {
+    			if (envName.contains("DB_URL")) {
+       	 			configOverrides.put("javax.persistence.jdbc.url", env.get(envName)));    
+    			}
+    			if (envName.contains("DB_USER")) {
+       	 			configOverrides.put("javax.persistence.jdbc.user", env.get(envName)));    
+    			}
+			if (envName.contains("DB_PASSWORD")) {
+       	 			configOverrides.put("javax.persistence.jdbc.password", env.get(envName)));    
+    			}
+		}
+		this.factory = Persistence.createEntityManagerFactory("jsf1PU", configOverrides);
 	}
 	
 	@Produces
