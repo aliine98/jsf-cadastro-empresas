@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 RUN mvn clean install package
 
 # Renomear o arquivo WAR para ROOT.war
-RUN mv /usr/src/app/target/jsf-cadastro-empresas.war /usr/src/app/target/ROOT.war
+RUN mv /usr/src/app/target/jsf1-0.0.1-SNAPSHOT.war /usr/src/app/target/ROOT.war
 
 # Usar a imagem base que possui suporte ao Java e ao Tomcat
 FROM tomcat:8.5.92-jdk11
