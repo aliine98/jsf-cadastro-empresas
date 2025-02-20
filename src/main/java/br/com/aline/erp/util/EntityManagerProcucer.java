@@ -17,13 +17,13 @@ public class EntityManagerProcucer {
 	public EntityManagerProcucer() {
 		for (String envName : env.keySet()) {
     			if (envName.contains("DB_URL")) {
-       	 			configOverrides.put("javax.persistence.jdbc.url", env.get(envName)));    
+       	 			configOverrides.put("javax.persistence.jdbc.url", env.get(envName));    
     			}
     			if (envName.contains("DB_USER")) {
-       	 			configOverrides.put("javax.persistence.jdbc.user", env.get(envName)));    
+       	 			configOverrides.put("javax.persistence.jdbc.user", env.get(envName));    
     			}
 			if (envName.contains("DB_PASSWORD")) {
-       	 			configOverrides.put("javax.persistence.jdbc.password", env.get(envName)));    
+       	 			configOverrides.put("javax.persistence.jdbc.password", env.get(envName));    
     			}
 		}
 		this.factory = Persistence.createEntityManagerFactory("jsf1PU", configOverrides);
