@@ -1,25 +1,15 @@
 FROM maven:3.8.1-jdk-11-openj9 AS builder
 
-# Copiar os arquivos de origem do projeto para o contêiner
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-# Compilar o projeto Maven
-RUN mvn clean install package
+RUN mvn clean package -DskipTests
+RUN mv target/jsf1-0.0.1-SNAPSHOT.war target/ROOT.war
 
-# Renomear o arquivo WAR para ROOT.war
-RUN mv /usr/src/app/target/jsf1-0.0.1-SNAPSHOT.war /usr/src/app/target/ROOT.war
-
-# Usar a imagem base que possui suporte ao Java e ao Tomcat
 FROM tomcat:8.5.92-jdk11
 
-# Copiar o arquivo WAR renomeado para o diretório de implantação do Tomcat
 COPY --from=builder /usr/src/app/target/ROOT.war /usr/local/tomcat/webapps/
 
-# Define valor padrão (para rodar local)
 ENV PORT=8080
 
-EXPOSE 8080
-
-# 🔥 Ajusta a porta dinamicamente para o Render
-CMD sh -c "sed -i \"s/port=\"8080\"/port=\"${PORT}\"/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"
+CMD sh -c "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT}\\\"/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"
