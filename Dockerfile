@@ -16,9 +16,10 @@ FROM tomcat:8.5.92-jdk11
 # Copiar o arquivo WAR renomeado para o diretório de implantação do Tomcat
 COPY --from=builder /usr/src/app/target/ROOT.war /usr/local/tomcat/webapps/
 
-# Expor a porta em que o Tomcat estará em execução
+# Define valor padrão (para rodar local)
+ENV PORT=8080
+
 EXPOSE 8080
 
-# Comando para iniciar o Tomcat
-CMD ["catalina.sh", "run"]
-
+# 🔥 Ajusta a porta dinamicamente para o Render
+CMD sh -c "sed -i \"s/port=\"8080\"/port=\"${PORT}\"/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"
