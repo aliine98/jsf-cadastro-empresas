@@ -136,13 +136,16 @@
 					</h:panelGroup>
 					<p:outputLabel value="Ramo atividade: " for="ramoAtividade" />
 					<h:panelGroup>
-						<p:autoComplete id="ramoAtividade" maxlength="80" size="80"
+						<h:panelGrid columns="2">
+							<p:autoComplete id="ramoAtividade" maxlength="80" size="80"
 							required="true"
 							completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
 							converter="#{gestaoEmpresasBean.ramoAtividadesConverter}"
 							var="ramoAtividade" itemLabel="#{ramoAtividade.descricao}"
 							itemValue="#{ramoAtividade}"
 							value="#{gestaoEmpresasBean.empresa.ramoAtividade}" />
+							<p:commandButton value="Criar novo ramo" icon="fa fa-plus" oncomplete="PF('novoRamoDlg').show()" actionListener="#{gestaoEmpresasBean.preparaNovoRamo}"/>
+						<h:panelGrid>
 						<p:message for="ramoAtividade" />
 					</h:panelGroup>
 					<h:outputText />
@@ -152,6 +155,23 @@
 						oncomplete="if (!args.validationFailed) PF('empresaDialogVar').hide()"
 						process="novaEmpresaDialog" />
 				</h:panelGrid>
+			</p:dialog>
+			<p:dialog id="novoRamo" header="Novo Ramo de Atividade"
+				widgetVar="novoRamoDlg" resizable="false" closeOnEscape="true"
+				modal="true">
+				<p:defaultCommand target="salvarBtn"
+					scope="novoRamoDlg" />
+				<p:outputLabel value="Descrição: " for="desc" />
+				<h:panelGroup>
+					<p:inputText id="desc" required="true" maxlength="120"
+						size="80" value="#{gestaoEmpresasBean.ramo.descricao}" />
+					<p:message for="desc" />
+				</h:panelGroup>
+				<br/>
+				<p:commandButton id="salvarBtn" value="Salvar"
+						actionListener="#{gestaoEmpresasBean.salvarRamo}"
+						oncomplete="if (!args.validationFailed) PF('novoRamoDlg').hide()"
+						process="novoRamo" />
 			</p:dialog>
 		</h:form>
 	</ui:define>
