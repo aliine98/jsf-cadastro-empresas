@@ -144,7 +144,11 @@
 							var="ramoAtividade" itemLabel="#{ramoAtividade.descricao}"
 							itemValue="#{ramoAtividade}"
 							value="#{gestaoEmpresasBean.empresa.ramoAtividade}" />
-							<p:commandButton value="Criar novo ramo" icon="fa fa-plus" oncomplete="PF('novoRamoDlg').show()" actionListener="#{gestaoEmpresasBean.preparaNovoRamo}"/>
+							<p:commandButton value="Criar novo ramo" icon="fa fa-plus"
+								actionListener="#{gestaoEmpresasBean.preparaNovoRamo}"
+								oncomplete="PF('novoRamoDlg').show()"
+								update="novoRamo" process="@this">
+							</p:commandButton>
 						</h:panelGrid>
 						<p:message for="ramoAtividade" />
 					</h:panelGroup>
