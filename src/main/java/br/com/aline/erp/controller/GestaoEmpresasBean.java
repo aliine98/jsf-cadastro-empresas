@@ -34,11 +34,16 @@ public class GestaoEmpresasBean implements Serializable {
 	private String termoPesquisa;
 	private Converter ramoAtividadesConverter;
 	private Empresa empresa;
+	private RamoAtividade ramo;
 	@Inject
 	private CadastroEmpresaService cadastro;
 	
 	public void preparaNovaEmpresa() {
 		empresa = new Empresa();
+	}
+
+	public void preparaNovoRamo() {
+		ramo = new RamoAtividade();
 	}
 	
 	public void preparaEdicao() {
@@ -68,6 +73,15 @@ public class GestaoEmpresasBean implements Serializable {
 		
 		messages.info("Empresa salva com sucesso!");
 		RequestContext.getCurrentInstance().update(Arrays.asList("frm:messages","frm:empresasDataTable"));
+	}
+
+	public void salvarRamo() {
+		ramoAtividades.guardar(ramo);
+		
+		completarRamoAtividade(ramo.getDescricao());
+		
+		messages.info("Ramo de atividade salvo com sucesso!");
+		RequestContext.getCurrentInstance().update(Arrays.asList("frm:messages","frm:ramoAtividade"));
 	}
 	
 	public void excluir() {
@@ -110,6 +124,14 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public RamoAtividade getRamo() {
+		return ramo;
+	}
+	
+	public void setRamo(RamoAtividade ramo) {
+		this.ramo = ramo;
 	}
 	
 	public List<RamoAtividade> completarRamoAtividade(String termo) {
