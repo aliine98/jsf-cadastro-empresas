@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import br.com.aline.erp.model.RamoAtividade;
+import br.com.aline.erp.util.Transacional;
 
 public class RamoAtividades implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,8 @@ public class RamoAtividades implements Serializable {
 		TypedQuery<RamoAtividade> query = em.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
-	
+
+	@Transacional
 	public void guardar(RamoAtividade ra) {
 		em.merge(ra);
 	}
